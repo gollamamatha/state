@@ -75,12 +75,24 @@ app.post("/districts/", async (request, response) => {
 
 //get district
 
+// app.get("/districts/:districtId/", async (request, response) => {
+//   const { districtId } = request.params;
+//   const getDistrict = `SELECT * FROM district
+//      WHERE district_id=${districtId};`;
+
+//   const dbResponse = await db.get(getDistrict);
+//   response.send(dbResponse);
+// });
 app.get("/districts/:districtId/", async (request, response) => {
   const { districtId } = request.params;
-  const getDistrict = `SELECT * FROM district
-     WHERE district_id=${districtId};`;
-
-  const dbResponse = await db.get(getDistrict);
+  const getBookQuery = `
+    SELECT
+      *
+    FROM
+      district
+    WHERE
+      district_id = ${districtId};`;
+  const dbResponse = await db.get(getBookQuery);
   response.send(dbResponse);
 });
 
@@ -113,10 +125,4 @@ app.put("/districts/:districtId/", async (request, response) => {
 
   response.send("District Details Updated");
 });
-
-// get  /districts/:districtId/details/
-
-// app.get("/districts/:districtId/details/",(request,response)=>{
-//     const {districtId}=request.params;
-//     const
-// })
+module.exports = app;
